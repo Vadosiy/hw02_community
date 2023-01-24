@@ -16,7 +16,6 @@ class Group(models.Model):
         return self.title
 
 
-
 class Post(models.Model):
     """Модель постов."""
 
