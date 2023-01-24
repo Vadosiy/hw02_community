@@ -12,7 +12,11 @@ class Group(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
 
-    def __str__(self) -> str:
+    class Meta:
+        verbose_name_plural = 'Группы'
+        verbose_name = 'Группа'
+
+    def __str__(self):
         return self.title
 
 
@@ -20,7 +24,6 @@ class Post(models.Model):
     """Модель постов."""
 
     text = models.TextField(
-        max_length=400,
         verbose_name='Текст',
     )
     pub_date = models.DateTimeField(
@@ -40,3 +43,11 @@ class Post(models.Model):
         on_delete=models.SET_NULL,
         related_name='posts',
     )
+
+    class Meta:
+        ordering = ['-pub_date']
+        verbose_name_plural = 'Посты'
+        verbose_name = 'Пост'
+
+    def __str__(self):
+        return self.text
