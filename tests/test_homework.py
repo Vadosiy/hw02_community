@@ -252,3 +252,4 @@ class TestGroupView:
         assert re.search(
             r'{\%\sload static\s\%}', base_template
         ), 'Загрузите статику в base.html шаблоне'
+        

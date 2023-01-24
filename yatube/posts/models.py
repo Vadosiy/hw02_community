@@ -8,20 +8,13 @@ User = get_user_model()
 
 class Group(models.Model):
     """Модель групп."""
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    description = models.TextField()
 
-    title = models.CharField(
-        max_length=200,
-        verbose_name='Заголовок',
-    )
-    slug = models.SlugField(
-        max_length=200,
-        unique=True,
-        verbose_name='ЧПУ',
-    )
-    description = models.TextField(
-        max_length=400,
-        verbose_name='Описание',
-    )
+    def __str__(self) -> str:
+        return self.title
+
 
 
 class Post(models.Model):
