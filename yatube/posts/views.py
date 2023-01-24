@@ -1,24 +1,26 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
-from .models import Post, Group
+from .models import Group, Post
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:10]
+    """Выводим на страницу первые 10 записей постов."""
+
+    posts = Post.objects.select_related('author')[:10]
     template = 'posts/index.html'
-    context = {
-        'posts': posts,
-    }
+    context = {'posts': posts}
     return render(request, template, context)
 
 
 def group_posts(request, slug):
+    """Выводим на страницу первые 10 записей групп."""
+
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
+    posts = group.posts.select_related('author')[:10]
     template = 'posts/group_list.html'
     context = {
         'group': group,
-        'posts': posts,
+        'posts': posts
     }
     return render(request, template, context)
 
